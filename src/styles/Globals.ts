@@ -1,7 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 
 export default createGlobalStyle`
-  :root {
+  :root, html {
     font-size: 62.5%;
   }
 
@@ -18,15 +18,14 @@ export default createGlobalStyle`
     font-size: 1.6rem;
     font-family: 'Poppins', sans-serif;
 
-    color: ${({ theme }) => theme.colors.white};
+    color: ${({ theme }) => theme.colors.gray100};
     background-color: ${({ theme }) => theme.colors.gray900};
   }
 
   input, textarea, button {
     font-family: 'Poppins', sans-serif;
-    font-size: 1.4rem;
     font-weight: 400;
-    font-style: normal;
+    font-size: 1.6rem;
   }
 
   a {
