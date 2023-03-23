@@ -64,3 +64,10 @@ export const Option = styled.li`
     background-color: ${({ theme }) => theme.colors.gray600};
   }
 `
+
+export const Button = styled.span`
+  width: 100%;
+  
+  color: ${({ theme }) => theme.colors.gray900};
+  background-color: ${({ theme }) => theme.colors.gray500};
+`

@@ -1,2 +1,1 @@
-import { Home } from "@/core/pages/Home";
-export default Home
+export { default, getStaticProps } from "@/core/pages/Home";

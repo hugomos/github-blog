@@ -12,9 +12,17 @@ import { HPosts } from '@/core/components/HPosts';
 import { VPosts } from '@/core/components/VPosts';
 import { useTheme } from 'styled-components';
 import Link from 'next/link';
+import { GetStaticProps } from 'next';
 
-export const Home: React.FC = (props) => {
+export const getStaticProps: GetStaticProps = async () => {
+  return {
+    props: {
+      
+    }
+  }
+}
 
+const Home: React.FC = (props) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const theme = useTheme()
 
@@ -87,3 +95,5 @@ export const Home: React.FC = (props) => {
     </>
   );
 }
+
+export default Home;
