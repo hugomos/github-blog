@@ -4,9 +4,11 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
 
-  padding: 1.6rem 0;
-
   overflow: hidden;
+  
+  & + div {
+    margin-top: 1.4rem;
+  }
 `
 
 export const Image = styled.div`
@@ -21,20 +23,30 @@ export const Image = styled.div`
 `
 
 export const Content = styled.div`
-  h4 {
-    transition: color 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
 
-    margin-bottom: 0.8rem;
+  padding: 0.8rem 0;
+`
 
-    &:hover {
-      color: ${({ theme }) => theme.colors.gray300};
-    }
-  }
+export const Title = styled.h4`
+  margin-bottom: 0.8rem;
 
-  span {
-    font-size: 1.4rem;
+  color: ${({ theme }) => theme.colors.gray100};
+
+  transition: color 0.2s;
+  &:hover {
     color: ${({ theme }) => theme.colors.gray300};
   }
 `
 
-export const Resume = styled.p``
+export const Resume = styled.p`
+  font-size: 1.4rem;
+  color: ${({ theme }) => theme.colors.gray200};
+`
+
+export const Footer = styled.span`
+  font-size: 1.4rem;
+  color: ${({ theme }) => theme.colors.gray300};
+`

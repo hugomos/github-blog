@@ -10,17 +10,26 @@ export const Container = styled.header`
   align-items: center;
   justify-content: space-between;
 
-  padding: 0 1.6rem;
+  padding: 0 2.4rem;
+
+  >span {
+    display: none;
+  }
 
   @media screen and (min-width: 768px) {
     padding: 0 4.2rem;
+
+    >span {
+      width: 100%;
+
+      display: flex;
+      justify-content: end;
+    }
   }
 `
 
-export const Logo = styled.h2`
-  display: none;
-
-  @media screen and (min-width: 768px) {
-    display: block;
+export const Logo = styled.picture`
+  >img {
+    height: 4.4rem;
   }
 `

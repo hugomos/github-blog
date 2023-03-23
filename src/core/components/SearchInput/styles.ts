@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   width: 100%;
-  max-width: 36rem;
   max-height: 3.6rem;
 
   padding: 1rem 1.6rem;
@@ -15,6 +14,10 @@ export const Container = styled.div`
 
   >svg {
     color: ${({ theme }) => theme.colors.gray300};
+  }
+
+  @media screen and (min-width: 768px) {
+    max-width: 36rem;
   }
 `
 

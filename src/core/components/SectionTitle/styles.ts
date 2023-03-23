@@ -1,6 +1,10 @@
 import styled from "styled-components";
 
-export const Container = styled.h3`
+interface ContainerProps {
+  barColor: string;
+}
+
+export const Container = styled.h3<ContainerProps>`
 
   display: flex;
   gap: 1rem;
@@ -11,6 +15,6 @@ export const Container = styled.h3`
     content: "";
     display: block;
     
-    border: 2px solid ${({ theme }) => theme.colors.gray100};
+    border: 2px solid ${({ theme, barColor }) => barColor ? barColor : theme.colors.gray100};
   }
 `

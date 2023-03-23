@@ -1,6 +1,8 @@
+/* eslint-disable @next/next/no-img-element */
+
 import React from 'react';
 
-import { Container, Image, Content, Resume } from './styles';
+import { Container, Image, Content, Resume, Title, Footer } from './styles';
 import Link from 'next/link';
 
 interface Props {
@@ -12,18 +14,21 @@ interface Props {
 }
 
 export const Post: React.FC<Props> = ({ image, title, content, author, createdAt }) => {
+  const formatedResume = content?.substring(0, 150) + '... ver mais';
+
   return (
     <Container>
       <Link href="#">
         {image && (
+          // eslint-disable-next-line jsx-a11y/alt-text
           <Image>
-            <img src={image} alt="" />
+            <img src={image} alt='post image'/>
           </Image>
         )}
         <Content>
-          <h4>{title}</h4>
-          {content && <Resume>{content.slice(0, 150) + '...ver mais'}</Resume>}
-          <span>Por {author} há 6hrs</span>
+          <Title>{title}</Title>
+          {content && <Resume>{formatedResume}</Resume>}
+          <Footer>Por {author} há 6hrs</Footer>
         </Content>
       </Link>
     </Container>

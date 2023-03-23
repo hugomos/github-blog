@@ -9,5 +9,8 @@ export const dafaultTheme = {
     gray600: '#1a1a1a',
     gray800: '#121214',
     gray900: '#0d0d0d',
+    purple: '#6E3DD9',
+    pink: '#E83F5B',
+    yellow: '#F7B84C',
   }
 }

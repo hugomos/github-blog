@@ -3,13 +3,12 @@ import React from 'react';
 import { Container } from './styles';
 
 interface Props {
-  barColor?: string;
   children: React.ReactNode | React.ReactNode[];
 }
 
-export const SectionTitle: React.FC<Props> = ({ children, barColor="" }) => {
+export const HPosts: React.FC<Props> = ({children}) => {
   return (
-    <Container barColor={barColor}>
+    <Container>
       {children}
     </Container>
   );

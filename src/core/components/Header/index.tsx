@@ -1,13 +1,28 @@
+/* eslint-disable @next/next/no-img-element */
+
 import React from 'react';
+import { List } from '@phosphor-icons/react';
 
-import { Container, Logo } from './styles';
 import { SearchInput } from '../SearchInput';
+import { Container, Logo } from './styles';
+import { Burguer } from '../Burguer';
+import Link from 'next/link';
 
-export const Header: React.FC = () => {
+interface Props {
+  setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export const Header: React.FC<Props> = ({ setIsMenuOpen }) => {
   return (
     <Container>
-      <Logo>GITHUB BLOG</Logo>
-      <SearchInput />
+      <Logo>
+        <source srcSet='/logo-p.svg' media='(max-width: 768px)'/>
+        <img src="/logo-g.svg" alt="application logo" />
+      </Logo>
+      <span>
+        <SearchInput />
+      </span>
+      <Burguer setIsMenuOpen={setIsMenuOpen} />
     </Container>
   );
 }
