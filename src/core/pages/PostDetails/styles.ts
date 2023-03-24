@@ -22,8 +22,12 @@ export const Content = styled.main`
     margin-bottom: 1.6rem;
     font-size: 2.2rem;
 
-    @media screen and (min-width: 768px) {
-      font-size: 3.2rem;
+    @media screen and (min-width: 769px) {
+      font-size: 2.6rem;
+    }
+
+    @media screen and (min-width: 900px) {
+      font-size: 3rem;
     }
   }
 
@@ -65,14 +69,5 @@ export const Content = styled.main`
 
   @media screen and (min-width: 995px) {
     padding: 3.2rem 16.2rem;
-  }
-`
-
-export const Title = styled.h1`
-  margin-bottom: 1.6rem;
-  font-size: 2.2rem;
-
-  @media screen and (min-width: 768px) {
-    font-size: 3.2rem;
   }
 `

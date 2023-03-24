@@ -28,7 +28,7 @@ export const Post: React.FC<Props> = ({ post, bodyIsVisible=true, imageIsVisible
       <Link href={`/${post.number}`}>
           {imageIsVisible && (
             <Image> 
-              <img src={image} alt="imagem de cabecalho da publicacao"/>
+              <img src={image} alt="imagem de cabecalho da publicacao" loading='lazy'/>
             </Image>
           )}
         <Content>
