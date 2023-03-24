@@ -8,26 +8,7 @@ export const Container = styled.div<ContainerProps>`
   width: 100%;
   height: 100vh;
 
-  overflow: ${({ isMenuOpen }) => isMenuOpen ? 'hidden' : 'auto'};
-`
-
-export const Navigation = styled.nav`
-  width: 100%;
-  display: none;
-
-  list-style: none;
-  border-top: 1px solid ${({ theme }) => theme.colors.gray600};
-  border-bottom: 1px solid ${({ theme }) => theme.colors.gray600};
-
-  @media screen and (min-width: 768px) {
-    display: flex;
-    align-items: center;
-    justify-content: end;
-
-    gap: 2.4rem;
-
-    padding: 0.8rem 4.2rem;
-  }
+  /* overflow: ${({ isMenuOpen }) => isMenuOpen ? 'hidden' : 'auto'}; */
 `
 
 export const Content = styled.main`

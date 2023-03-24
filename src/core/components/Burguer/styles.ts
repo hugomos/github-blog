@@ -10,6 +10,8 @@ export const Container = styled.button`
   border: none;
   background: none;
 
+  cursor: pointer;
+
   svg {
     color: ${({ theme }) => theme.colors.white};
   }

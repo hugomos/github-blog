@@ -19,8 +19,6 @@ export const Container = styled.nav<Props>`
   position: absolute;
 
   background-color: ${({ theme }) => theme.colors.gray900};
-
-  translate: ${({ isMenuOpen }) => isMenuOpen ? 'translateX(0)' : 'translateX(-100%)'};
 `
 
 export const Content = styled.div`

@@ -15,10 +15,12 @@ interface Props {
 export const Header: React.FC<Props> = ({ setIsMenuOpen }) => {
   return (
     <Container>
-      <Logo>
-        <source srcSet='/logo-p.svg' media='(max-width: 768px)'/>
-        <img src="/logo-g.svg" alt="application logo" />
-      </Logo>
+      <Link href="/">
+        <Logo>
+          <source srcSet='/logo-p.svg' media='(max-width: 768px)'/>
+          <img src="/logo-g.svg" alt="application logo" />
+        </Logo>
+      </Link>
       <span>
         <SearchInput />
       </span>

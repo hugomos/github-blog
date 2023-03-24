@@ -12,6 +12,8 @@ export const Container = styled.header`
 
   padding: 0 2.4rem;
 
+  background-color: ${({ theme }) => theme.colors.gray800};
+
   >span {
     display: none;
   }

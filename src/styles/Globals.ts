@@ -6,6 +6,21 @@ export default createGlobalStyle`
     scroll-behavior: smooth;
   }
 
+  *::-webkit-scrollbar {
+    width: 0.6rem;
+    
+  }
+
+  *::-webkit-scrollbar-track {
+    background-color: ${({ theme }) => theme.colors.gray900};
+    
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: ${({ theme }) => theme.colors.purple};
+    border-radius: 999px;
+  }
+
   * {
     margin: 0;
     padding: 0;

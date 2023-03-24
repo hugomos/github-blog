@@ -1,46 +1,71 @@
+/* eslint-disable @next/next/no-img-element */
 import { Header } from '@/core/components/Header';
 import Head from 'next/head';
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 
-import { Container, Content, Title } from './styles';
+import { Container, Content } from './styles';
 import { GetStaticPaths, GetStaticProps } from 'next';
 
 import ReactMarkdown from 'react-markdown'
 
 import { api } from '@/core/lib/axios';
 import { Spinner } from '@/core/components/Spinner';
+import { MenuContext } from '@/core/contexts/menuContext';
+import { Menu } from '@/core/components/Menu';
+import { Footer } from '@/core/components/Footer';
+import { formatDate } from '@/core/shared/utils/formatDate';
+import { IResponse } from '../Home';
+import Link from 'next/link';
 
-interface IPost {
+export interface IUser {
+  login: string,
+  bio: string,
+  avatar_url: string,
+  html_url: string
+}
+
+export interface IPost {
   number: number,
   title: string,
   body: string,
   created_at: string,
-  user: {
-    login: string,
-  }
+  user: IUser
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = async (ctx) => {
+
+  const { data } = await api.get<IResponse>(`search/issues?q=%20repo:hugomos/blog-posts`);
+
+  const paths = data.items.map(post => {
+    return {
+      params: {
+        id: post.number.toString(),
+      }
+    }
+  })
+
   return {
-    paths: [],
+    paths,
     fallback: true,
   };
 };
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
-  const { data } = await api.get(`repos/hugomos/blog-posts/issues/${ctx.params?.id}`);
+  const { data } = await api.get<IPost>(`repos/hugomos/blog-posts/issues/${ctx.params?.id}`);
+  const user = (await api.get<IUser>(`users/${data.user.login}`)).data;
 
   const post = {
-    id: data.id,
+    number: data.number,
     title: data.title,
     body: data.body,
-    created_at: data.created_at,
+    created_at: formatDate(data.created_at),
     user: {
       login: data.user.login,
+      bio: user.bio,
+      avatar_url: `https://github.com/${data.user.login}.png`,
+      html_url: user.html_url
     }
   }
-
-  console.log(post)
 
   return {
     props: {
@@ -54,16 +79,23 @@ interface Props {
 }
 
 const PostDetails: React.FC<Props> = ({ post }) => {
-
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { isMenuOpen, setIsMenuOpen } = useContext(MenuContext);
 
   if(!post) {
     return (
-      <Container>
+      <Container isMenuOpen>
         <Header setIsMenuOpen={setIsMenuOpen}/>
         <Content>
           <Spinner />
         </Content>
+      </Container>
+    )
+  }
+
+  if(isMenuOpen){
+    return (
+      <Container isMenuOpen>
+        <Menu setIsMenuOpen={setIsMenuOpen} isMenuOpen/>
       </Container>
     )
   }
@@ -73,12 +105,12 @@ const PostDetails: React.FC<Props> = ({ post }) => {
       <Head>
         <title>{post.title}</title>
       </Head>
-      <Container>
+      <Container isMenuOpen>
         <Header setIsMenuOpen={setIsMenuOpen}/>
         <Content>
-          <Title>{post.title}</Title>
           <ReactMarkdown>{post.body}</ReactMarkdown>
         </Content>
+        <Footer />
       </Container>
     </>
   );
