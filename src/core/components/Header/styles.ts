@@ -10,7 +10,7 @@ export const Container = styled.header`
   align-items: center;
   justify-content: space-between;
 
-  padding: 0 2.4rem;
+  padding: 4.2rem 2.4rem;
 
   background-color: ${({ theme }) => theme.colors.gray800};
 
@@ -19,7 +19,7 @@ export const Container = styled.header`
   }
 
   @media screen and (min-width: 768px) {
-    padding: 0 4.2rem;
+    padding: 3.2rem 4.2rem;
 
     >span {
       width: 100%;

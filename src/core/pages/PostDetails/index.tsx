@@ -34,7 +34,7 @@ export interface IPost {
 
 export const getStaticPaths: GetStaticPaths = async (ctx) => {
 
-  const { data } = await api.get<IResponse>(`search/issues?q=%20repo:hugomos/blog-posts`);
+  const { data } = await api.get<IResponse>(`search/issues?q=%20repo:hugomos/github-blog`);
 
   const paths = data.items.map(post => {
     return {

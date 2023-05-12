@@ -22,6 +22,7 @@ import { api } from '@/core/lib/axios';
 import { IPost } from '../PostDetails';
 import { formatDate } from '@/core/shared/utils/formatDate';
 import { Spinner } from '@/core/components/Spinner';
+import { SearchInputContext } from '@/core/contexts/searchInputContext';
 
 export interface IResponse {
   items: IPost[],
@@ -30,7 +31,7 @@ export interface IResponse {
 
 export const getStaticProps: GetStaticProps = async () => {
 
-  const requestURL = "/search/issues?q=%20repo:hugomos/blog-posts%20label:"
+  const requestURL = "/search/issues?q=%20repo:hugomos/github-blog%20label:"
 
   const mostRelavantsPostsRequest = (await api.get<IResponse>(`${requestURL}most_relevant`)).data
   const latestPublicationsRequest = (await api.get<IResponse>(`${requestURL}latest_publication`)).data
@@ -66,7 +67,7 @@ export const getStaticProps: GetStaticProps = async () => {
       mostRelavantsPosts,
       latestPublications,
     },
-    revalidate: 60 * 60 * 24, // 24 hours
+    revalidate: 60 * 60 * 1, // One hour
   }
 }
 
@@ -77,7 +78,12 @@ interface Props {
 
 const Home: React.FC<Props> = ({ latestPublications, mostRelavantsPosts }) => {
   const { isMenuOpen, setIsMenuOpen } = useContext(MenuContext);
-  const theme = useTheme()
+  const { searchTerm } = useContext(SearchInputContext);
+  const theme = useTheme();
+
+  const searchPosts = [...mostRelavantsPosts, ...latestPublications].filter(post => {
+    return post.title.toLowerCase().includes(searchTerm.toLowerCase())
+  })
 
   if(isMenuOpen){
     return (
@@ -108,25 +114,41 @@ const Home: React.FC<Props> = ({ latestPublications, mostRelavantsPosts }) => {
       <Container isMenuOpen>
         <Header setIsMenuOpen={setIsMenuOpen} />
         <Navigation />
-        <Content>
-          <Section id='latest_publications'>
-            <SectionTitle barColor={theme.colors.purple}>Ultimas publicações</SectionTitle>
-            <VPosts>
-              {latestPublications.map(post => (
-                <Post key={post.number} post={post} bodyIsVisible={false} imageIsVisible={false}/>
-              ))}
-            </VPosts>
-          </Section>
-          
-          <Section id='most_relevant'>
-            <SectionTitle barColor={theme.colors.pink}>Mais relevantes</SectionTitle>
-            <HPosts>
-              {mostRelavantsPosts.map(post => (
-                <Post key={post.number} post={post}/>
-              ))}
-            </HPosts>
-          </Section>
-        </Content>
+        {searchTerm.length > 0 ? (
+          <Content>
+            <Section id='search_publications'>
+              <SectionTitle barColor={theme.colors.yellow}>Resultados da busca</SectionTitle>
+              <VPosts>
+                {searchPosts.length > 0 ? (
+                  searchPosts.map(post => (
+                    <Post key={post.number} post={post} bodyIsVisible={false} imageIsVisible={false}/>
+                  ))
+                ): (
+                  <p style={{ marginTop: '2rem' }}>Nenhum resultado encontrado</p>
+                )}
+              </VPosts>
+            </Section>
+          </Content>
+        ) : (
+          <Content>
+              <Section id='latest_publications'>
+                <SectionTitle barColor={theme.colors.purple}>Ultimas publicações</SectionTitle>
+                <VPosts>
+                  {latestPublications.map(post => (
+                    <Post key={post.number} post={post} bodyIsVisible={false} imageIsVisible={false}/>
+                  ))}
+                </VPosts>
+              </Section>
+              <Section id='most_relevant'>
+                <SectionTitle barColor={theme.colors.pink}>Mais relevantes</SectionTitle>
+                <HPosts>
+                  {mostRelavantsPosts.map(post => (
+                    <Post key={post.number} post={post}/>
+                  ))}
+                </HPosts>
+              </Section>
+          </Content>
+        )}
         <Footer />
       </Container>
     </>

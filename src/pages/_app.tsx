@@ -6,6 +6,7 @@ import GlobalStyles from '@/styles/Globals'
 import { dafaultTheme } from '@/styles/theme/dafaultTheme'
 
 import { MenuProvider } from '@/core/contexts/menuContext'
+import { SearchInputProvider } from '@/core/contexts/searchInputContext'
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -13,7 +14,9 @@ export default function App({ Component, pageProps }: AppProps) {
       <ThemeProvider theme={dafaultTheme}>
         <GlobalStyles />
         <MenuProvider>
-          <Component {...pageProps} />
+          <SearchInputProvider>
+            <Component {...pageProps} />
+          </SearchInputProvider>
         </MenuProvider>
       </ThemeProvider>
     </>
