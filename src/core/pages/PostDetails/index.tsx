@@ -51,7 +51,7 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
 };
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
-  const { data } = await api.get<IPost>(`repos/hugomos/blog-posts/issues/${ctx.params?.id}`);
+  const { data } = await api.get<IPost>(`repos/hugomos/github-blog/issues/${ctx.params?.id}`);
   const user = (await api.get<IUser>(`users/${data.user.login}`)).data;
 
   const post = {
